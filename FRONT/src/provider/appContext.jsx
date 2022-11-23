@@ -7,7 +7,7 @@ const AppProvider = ({ children }) => {
 
     const [user, setUser] = useState('');
     const [srole , setSrole] = useState('');
-    const [isAuth, setIsAuth] = useState(true);
+    const [isAuth, setIsAuth] = useState(false);
 
     const [movies , setMovies] = useState([]);
 
