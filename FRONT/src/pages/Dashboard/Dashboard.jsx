@@ -1,13 +1,27 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useEffect } from 'react';
+import Service from '../../services/index';
+import { AppContext } from '../../provider/appContext'
+import CardContainer from '../../components/CardContainer/CardContainer';
 
-const Index = () => {
+const Dashboard = () => {
+
+    const service = new Service();
+    const { setMovies } = useContext(AppContext);
 
 
-    
+    useEffect(() => {
+        const getItems = async () => {
+            const movies = await service.getData('movies');
+            console.log('movies', movies);
+            setMovies(movies);
+        }
+        getItems();
+    }, []);
+
     return (
         <div>
-            <header className='pt-5'>
+            <header className="pt-5">
                 <div className="d-flex justify-content-evenly">
                     <div>
                         <img
@@ -47,12 +61,11 @@ const Index = () => {
                             <i className="fas fa-user"></i>
                         </button>
                     </div>
-
                 </div>
             </header>
 
-            <main className='m-5 p-5'>
-                <h1>MAIN INFO</h1>
+            <main className="m-5 p-5">
+                <CardContainer />
             </main>
 
             <footer>
@@ -77,10 +90,9 @@ const Index = () => {
                         <p className="text-white">Instagram</p>
                     </div>
                 </div>
-
             </footer>
         </div>
     );
 };
 
-export default Index;
+export default Dashboard;

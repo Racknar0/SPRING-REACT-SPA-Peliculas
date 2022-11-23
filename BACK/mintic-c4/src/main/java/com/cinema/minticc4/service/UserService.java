@@ -1,7 +1,9 @@
 package com.cinema.minticc4.service;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.cinema.minticc4.model.User;
 import com.cinema.minticc4.repository.UserRepository;
@@ -16,36 +18,26 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public List<User> listarUsers (){
+    public List<User> listarUsers() {
         return this.userRepository.findAll();
-
     }
 
-    public User validarUser(String nombreUsuario, String passwordUsuario){
-       List<User> usuarios = this.userRepository.findAll();
-       for (User usuariosobj : usuarios) {
-        if (nombreUsuario.equals(usuariosobj.getUsername())) {
-            if(passwordUsuario.equals(usuariosobj.getPassword())){
-                System.out.println("*********usuario encontrado*************");
+    public ResponseEntity<?> validarUser(String nombreUsuario, String passwordUsuario) {
+        List<User> usuarios = this.userRepository.findAll();
+        for (User usuariosobj : usuarios) {
+            if (nombreUsuario.equals(usuariosobj.getUsername())) {
+                if (passwordUsuario.equals(usuariosobj.getPassword())) {
 
-                User user = new User();
-                user.setUsername(usuariosobj.getUsername());
-                user.setSrole(usuariosobj.getSrole());
-
-                return user;
+                    String username = usuariosobj.getUsername();
+                    String srole = usuariosobj.getSrole();
+                    Boolean isAuth = true;
+                    return ResponseEntity.ok()
+                            .body("{ \"username\": \"" + username + "\", \"srole\": \"" + srole + "\", \"isAuth\": \""
+                                    + isAuth + "\" }");
+                }
             }
-        
         }
-       }System.out.println("usuario o contraseña incorrecto");
-        return null;
+        System.out.println("usuario o contraseña incorrecto");
+        return ResponseEntity.ok().body("{ \"isAuth\": \"false\" }");
     }
-
-    // public User getDetails(String username) {
-    //     return userRepository.findbyusername(username);
-    // }
-
-    // public String getStudentRoles(String username) {
-    //     return userRepository.findbyusername(username).getSrole();
-    // }
 }
-
