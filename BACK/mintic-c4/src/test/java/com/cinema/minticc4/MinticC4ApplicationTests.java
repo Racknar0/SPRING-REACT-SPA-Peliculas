@@ -1,0 +1,13 @@
+package com.cinema.minticc4;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class MinticC4ApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}
