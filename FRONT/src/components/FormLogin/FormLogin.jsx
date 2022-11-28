@@ -1,14 +1,16 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import Service from '../../services/index';
 import {AppContext} from '../../provider/appContext';
 import { useNavigate } from 'react-router-dom';
-
+import Swal from 'sweetalert2'
 
 const FormLogin = () => {
 
+
     const service = new Service();
     const navigate = useNavigate();
-    const {setUser, setIsAuth, setSrole} = useContext(AppContext);
+    const {setUser, setIsAuth, setSrole, setLocalStorageAuth} = useContext(AppContext);
+
 
 
     const [username, setUsername] = useState('');
@@ -19,13 +21,26 @@ const FormLogin = () => {
         const user = await service.postData('login', { username, password });
         if (user.isAuth === 'false') {
             setIsAuth(false);
-            alert('Usuario o contraseña incorrectos');
+            localStorage.setItem('isAuth', false);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Username or password incorrect!',
+            })
             return;
         } else {
-            alert('Bienvenido');
             setUser(user.username);
+            localStorage.setItem('user', user.username);
             setIsAuth(true);
+            localStorage.setItem('isAuth', true);
             setSrole(user.srole);
+            localStorage.setItem('srole', user.srole);
+            await Swal.fire({
+                icon: 'success',
+                title: 'Welcome!',
+                text: 'You are logged in!',
+            })
+
             navigate('/dashboard');
         }
     };

@@ -4,7 +4,7 @@ import { AppContext } from '../../provider/appContext'
 
 const CardContainer = () => {
 
-    const { movies } = useContext(AppContext);
+    const { movies, srole } = useContext(AppContext);
 
   return (
     <div className='row'>

@@ -4,20 +4,14 @@ import Loader from '../../components/Loader/Loader';
 import './Login.css';
 
 const Login = () => {
-    const [loading, setLoading] = useState(true);
-    setTimeout(() => {
-        setLoading(false);
-    }, 3000);
 
     return (
         <div>
-            {loading ? (
-                <Loader />
-            ) : (
-                <div className="container_login">
+            <Loader timer={3000}>
+                 <div className="container_login">
                     <FormLogin />
                 </div>
-            )}
+            </Loader>
         </div>
     );
 };

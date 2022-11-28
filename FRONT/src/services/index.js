@@ -22,6 +22,26 @@ export default class ApiDashboard {
                     'Content-Type': 'application/json',
                 },
             })
-            .then((response) => response.data);
+            .then((response) => response);
+    }
+
+    /* METODO PUT */
+    async putData(lastUrl, data) {
+        return axios.put(`${BASE_URL}/${lastUrl}`, data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then((response) => response);
+    }
+
+    /* METODO DELETE */
+    async deleteData(lastUrl, id) {
+        return axios.delete(`${BASE_URL}/${lastUrl}/${id}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then((response) => response);
     }
 }
