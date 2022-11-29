@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Loader.css'
 
 const Loader = ({children, timer}) => {
 
-
     const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        
+        setLoading(true);
+
+    }, [])
+
+
+    
     setTimeout(() => {
         setLoading(false);
     }, timer);

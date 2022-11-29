@@ -19,7 +19,9 @@ const FormLogin = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const user = await service.postData('login', { username, password });
-        if (user.isAuth === 'false') {
+        console.log("🚀 ** file: FormLogin.jsx ** line 22 ** user", user)
+
+        if (user.data.isAuth === 'false') {
             setIsAuth(false);
             localStorage.setItem('isAuth', false);
             Swal.fire({
@@ -29,12 +31,12 @@ const FormLogin = () => {
             })
             return;
         } else {
-            setUser(user.username);
-            localStorage.setItem('user', user.username);
+            setUser(user.data.username);
+            localStorage.setItem('user', user.data.username);
             setIsAuth(true);
             localStorage.setItem('isAuth', true);
             setSrole(user.srole);
-            localStorage.setItem('srole', user.srole);
+            localStorage.setItem('srole', user.data.srole);
             await Swal.fire({
                 icon: 'success',
                 title: 'Welcome!',

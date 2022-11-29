@@ -6,7 +6,10 @@ import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../../provider/appContext';
 
 
-const Modal = ({ children, title, type }) => {
+const Modal = ({ children, title, type, id, movie }) => {
+
+
+    
 
     const service = new Service();
     const navigate = useNavigate();
@@ -24,11 +27,23 @@ const Modal = ({ children, title, type }) => {
     const [image, setImage] = useState('');
     const [official_site, setOfficial_site] = useState('');
     const [trailer, setTrailer] = useState('');
+    const [keyMovie, setKeyMovie] = useState('');
 
 
-    useEffect (() => {
-        
-
+    useEffect(() => {
+        if (movie) {
+            setIdMovie(movie.id_movie);
+            setNameMovie(movie.name);
+            setDescription(movie.description);
+            setDirector(movie.director);
+            setGenre(movie.genre);
+            setCountry(movie.country);
+            setDate( movie.date.slice(0,10));
+            setImage(movie.image);
+            setOfficial_site(movie.official_site);
+            setTrailer(movie.trailer);
+            setKeyMovie(movie.id);
+        }
     }, [])
 
     const setAllToAdd = () => {
@@ -54,8 +69,6 @@ const Modal = ({ children, title, type }) => {
             return;
         }
 
-
-
         const movie = {
             id_movie : idMovie,
             name: nameMovie,
@@ -69,28 +82,54 @@ const Modal = ({ children, title, type }) => {
             date : date
         }
 
-        service.postData('movies', movie)
-        .then(res => {
-            if (res.status === 201) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Movie added!',
-                    text: 'Movie added successfully!',
-                })
-                /* cerrar modal */
-                setAllToAdd();
-                getItems();
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Movie not added!',
-                })
-            }
+        if (type === 'add') {
+            service.postData('movies', movie)
+            .then(res => {
+                if (res.status === 201) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Movie added!',
+                        text: 'Movie added successfully!',
+                    })
+                    getItems();
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Movie not added!',
+                    })
+                }
 
-        })
-        
+            })
+            return;
+
+        } else if (type === 'update') {
+            service.putData('movies', keyMovie , movie)
+            .then(res => {
+                if (res.status === 200) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Movie updated!',
+                        text: 'Movie updated successfully!',
+                    }) 
+                    getItems();
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Movie not updated!',
+                    })
+                }
+                console.log(res);
+
+            })
+            
+            return;
+        }
     }
+        
+        
+    
 
 
     
@@ -99,7 +138,7 @@ const Modal = ({ children, title, type }) => {
     return (
         <div
             className="modal fade"
-            id="exampleModal"
+            id={id}
             tabIndex="-1"
             aria-labelledby="exampleModalLabel"
             aria-hidden="true"

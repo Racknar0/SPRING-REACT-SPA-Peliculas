@@ -82,24 +82,17 @@ const Header = () => {
                             >
                                 <i className="fa fa-sign-out"></i>Logout
                             </button>
-
-                            
-                        
                     </div>
                 </nav>
                 {
-                    localStorage.getItem('srole') === 'admin' ? (
+                    (localStorage.getItem('srole') === 'admin') ? (
                     <div>
-                        <button  data-bs-toggle="modal" data-bs-target="#exampleModal" className='mt-3 btn btn-success'>+ ADD MOVIE</button>
+                        <button  data-bs-toggle="modal" data-bs-target="#modal_add" className='mt-3 btn btn-success'>+ ADD MOVIE</button>
                     </div>
                     ) : null
                 }
             </header>
-            <Modal title={'Add Movie to Database'} type={'add'}  />
-
-
-
-
+            <Modal title={'Add Movie to Database'} type={'add'} id={'modal_add'}  />
 
 
             </>

@@ -1,6 +1,7 @@
 import React, {useContext} from 'react'
 import Card from '../Card/Card'
 import { AppContext } from '../../provider/appContext'
+import Modal from '../Modal/Modal';
 
 const CardContainer = () => {
 
@@ -13,6 +14,7 @@ const CardContainer = () => {
                     return <Card movie={movie} key={index} />
                 })
             }
+            
     </div>
         
   )

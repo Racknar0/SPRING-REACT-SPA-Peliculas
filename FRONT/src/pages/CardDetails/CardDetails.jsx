@@ -49,7 +49,7 @@ const CardDetails = () => {
                                 <p className='text-black'><span className='fw-bold'>ID IMDB: </span>{movie.id_movie}</p>
                                 <p className='text-black'><span className='fw-bold'>Official Site: </span><a href={movie.official_site}>{movie.official_site}</a></p>
                                 <p className='text-black'><span className='fw-bold'>Tailer: </span></p>
-                                <iframe width="400px" height="250px" src="https://www.youtube.com/embed/gCVj1LeYnsc" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                                <iframe width="400px" height="250px" src={movie.trailer} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
 
                             </div>
 

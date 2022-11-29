@@ -26,8 +26,8 @@ export default class ApiDashboard {
     }
 
     /* METODO PUT */
-    async putData(lastUrl, data) {
-        return axios.put(`${BASE_URL}/${lastUrl}`, data, {
+    async putData(lastUrl, id , data) {
+        return axios.put(`${BASE_URL}/${lastUrl}/${id}`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
